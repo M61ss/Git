@@ -11,7 +11,7 @@ git config --local user.email youremail@gmail.com
 git config --local user.name "yourusername"
 ```
 ## Turn a folder into a git repository
-Initialize a folder into a git repository:
+Initialize a folder as git repository:
 ```
 git init repository-name
 ```
@@ -29,3 +29,13 @@ Pull changes from origin to your local machine:
 ```
 git pull
 ```
+## Create a new branch
+Create a new branch from the last commit:
+```
+git branch new-branch-name
+```
+Create a branch from an older commit (due some need):
+```
+git branch new-branch-name SHA
+```
+Where SHA is a code that uniquely identify a commit. That code is easily available on graphical git interface, such GitHub Desktop.
