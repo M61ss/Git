@@ -10,6 +10,11 @@ Configure your local git credential. That is to say reserved credential for the 
 git config --local user.email youremail@gmail.com
 git config --local user.name "yourusername"
 ```
+## Turn a folder into a git repository
+Initialize a folder into a git repository:
+```
+git init repository-name
+```
 ## Cloning a remote repository from GitHub to local machine
 Clone on your local machine a remote repository:
 ```
