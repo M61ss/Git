@@ -1,5 +1,4 @@
 # GitTraining
- 
 ## Git configuration
 To configure your GitHub credential have to run these commands:
 ```
