@@ -1,12 +1,21 @@
 # GitTraining
 ## Git configuration
-To configure your GitHub credential have to run these commands:
+Configure your GitHub credential:
 ```
 git config user.email youremail@gmail.com
 git config user.name yourusername
 ```
 ## Cloning a remote repository from GitHub to local machine
-To clone on your local machine a remote repository you have to run this command:
+Clone on your local machine a remote repository:
 ```
 git clone https://github.com/owner-username/repository-name
+```
+## Push & pull
+Push local commits to origin:
+```
+git push
+```
+Pull changes from origin to your local machine:
+```
+git pull
 ```
