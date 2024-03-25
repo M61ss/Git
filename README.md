@@ -1,4 +1,4 @@
-# GitTraining
+# CLI Git
 ## Git configuration
 Configure your GitHub credential:
 ```
