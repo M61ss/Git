@@ -39,3 +39,12 @@ Create a branch from an older commit (due some need):
 git branch new-branch-name SHA
 ```
 Where SHA is a code that uniquely identify a commit. That code is easily available on graphical git interface, such GitHub Desktop.
+## Switch between branch
+The correct command to switch from a branch to the other is:
+```
+git switch destination-branch
+```
+It is also often used the ```git checkout``` command to switch between branches. It is important to underline that this command has many different usage which do not concern switching branches. We must remember this instruction because a lot of graphical git integration use ```checkout``` keyword referring to the branch switch operation:
+```
+git checkout destination-branch
+``` 
