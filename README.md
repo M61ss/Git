@@ -133,7 +133,7 @@ Rename a remote branch
 git push origin --delete <old-branch>
 git push -u origin <new-branch>
 ```
-
-
-
+\
+\
+\
 not recommended* = it is also often used the ```git checkout``` command to do many different actions between branches, so it is easy to get confused using that. However, we must remember these instructions because a lot of graphical git integration use ```checkout``` keyword referring, for example, to the branch switch operation.
