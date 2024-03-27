@@ -24,19 +24,19 @@ Where ```core.editor``` is used to set the default editor. This case I am using 
 
 **What is ```"code --wait"```?**
 \
-```code``` is the command to give to the shell to normally run VS Code (if you added it to PATH). In this case you need to specify the option ```--wait``` because we have to tell to the shell to wait until we close the new VS Code instance that will be open whenever Git needs an operation of text editing.
+```code``` is the command to give to the shell to normally run VS Code (if you added it to PATH). In this case you need to specify the option ```--wait``` because you have to tell to the shell to wait until you close the new VS Code instance that will be open whenever Git needs an operation of text editing.
 ## Edit global default settings
 After setting up the default Git editor, it is possible to manage more easily Git's settings running this command:
 ```
 git config --global -e
 ```
-As you can see trying this command on your machine, when you open a file running a Git command, Git wait the closure of that before starting to work again. This feature is given by the optioin ```--wait``` as we said a little while ago.
+As you can see trying this command on your machine, when you open a file running a Git command, Git wait the closure of that before starting to work again. This feature is given by the optioin ```--wait``` as you said a little while ago.
 
 You can verify yourself that Git's settings that appears on the file opened by this command are only those you have already modified at least one time using command line, so this method is useful only if you want to modify or check some settings that, for example, you want to change or you don't remember.
 ## Handle end of lines
 Assuming that CRLF stands for "Carriage Return Line Feed", you can guess what setting ```core.autocrlf``` refers to. 
 \
-It is very important to set correctly this default setting because it give to Git the ability to translate Windows's carriage return (\n\r) into macOS/Linux's carriage return (\n) and vice versa. Without this option, it can be mistakes when two machines that use different types of carriage return modify the same file. Git fix end of lines consistently with the type of carriage return we specify that our OS supports.
+It is very important to set correctly this default setting because it give to Git the ability to translate Windows's carriage return (\n\r) into macOS/Linux's carriage return (\n) and vice versa. Without this option, it can be mistakes when two machines that use different types of carriage return modify the same file. Git fix end of lines consistently with the type of carriage return you specify that your OS supports.
 
 You can set this option running the following command:
 ```
@@ -68,6 +68,11 @@ Know the current status of the repository in the current branch (name of current
 ```
 git status
 ```
+For a more compact view:
+```
+git status -s
+```
+Where ```-s``` stands for "short".
 ## Commit
 A commit is a snapshot of your project taken at the time that you submit that.
 \
@@ -107,8 +112,32 @@ git add *.txt
 # if you want to add entire directory recursively
 git add .
 ```
-When you add a file to commit, you are putting it into the **staging area**.\
-It is an mid-area, between the current status of the repository and the status of it since last commit, that contains all files which will be part of your next commit.
+Remove a changed file to commit:
+```
+git reset <file1> <file2> <...>
+# or
+git reset *.txt
+# etc...
+
+# if you want to remove entire directory recursively
+git reset .
+```
+## Staging area
+When you add a new file or its changes to commit, you are putting them into the **staging area**.
+\
+It is a mid-area, between the current status of the repository (this status is called **working directory**) and the condition of it since last commit, where you must put all files or their changes which you decided to get into your next commit.
+\
+If you want to add some files or their changes to your next commit, you must stage them. This means that file changes are located into the working directory, but they are not put automatically in staging area.
+\
+It is important to notice that, if the file has been already staged at least once previously, it will be kept into the staging area as well as we added to it last time. Its changes will not be added until we add them instead.
+\
+Do not get confused by syntax: it is true that when you use the ```git add``` command, it seems that you are adding files everytime to the staging area, but it is not exaclty what it is happening. Actually, if you already added a new file previously, then subsequently you are adding **changes** applied to it, because it as an entity was already located in the staging area. It is a basic notion to understand how ```.gitignore``` works.
+
+Get a compact list of files contained inside the staging area:
+```
+git ls-files
+```
+*Warning*: if you modify the ```.gitignore``` file, Git keeps tracking changes, so, if you accidentally added files to ignore into staging area, you have to remove those from there (read in the section below to get to know how to remove that from there).
 
 If you don't need to keep one or more files unstaged, so you can use this fast command:
 ```
@@ -117,13 +146,31 @@ git commit -am "Commit message"
 git commit -a
 ```
 
-Everytime you modify a file into a repository, you have to add it again into the staging area.
+Know what changes has been applied to files that we have in the staging area the is going in the next commit:
+```
+git diff --staged
+```
+Let's see an example output:
+```
+diff --git a/file1 b/file1
+index badfb70..47c3216 100644
+--- a/file1     # --- indicates that is the old version of the file
++++ b/file1     # +++ indicates that is the new version of the file
+@@ -1,3 +1,5 @@     # - indicates the block size before changes, + after them. The format is: columns,rows.
+ this
+ file
+ test
++another    # Here you can see changes (+ if has been added something, - if remove)
++word
+```
+This way to display changes organize them into blocks that starts with ```@@ -columns,rows +columns,rows @@``` where ```-columns,rows``` indicates how many columns and rows the modified block had before changes, then ```+columns,rows``` show the number of columns and rows that the block will have if changes will be accepted.
 
-Remove file from the staging area:
+Know changes that we haven't added to the staging area:
 ```
-git reset <file>
+git diff
 ```
-Removing a file from the staging area means that it will be **unstaged**.
+
+If you don't want to get mad, consider to install a GUI Git implementation to check more easily changes.
 ## Discard changes
 Discard changes in working directory (restore a file to its status since last commit):
 ```
@@ -134,11 +181,6 @@ Another equivalent command (not recommended, see troubleshooting section):
 git checkout -- <file>
 ```
 All changes made on that file since last commit will be all deleted.
-## List staging area's files
-Get a compact list of files contained outside the staging area:
-```
-git ls-files
-```
 ## Add remote repository
 If you cloned your local repository from a remote one, you don't need to use this command, the origin will be set by default at the url used to clone.
 
@@ -147,6 +189,20 @@ Otherwise, add a remote repository as "origin":
 git remote add origin <url-remote-repository>
 ```
 It is true that you can use an arbitrary name instead of "origin"... but why? At your own risk.
+## Remove a file
+Remove a file from the current working directory:
+```
+git rm <file>
+# or (for directory)
+git rm -r <dir>
+```
+Remove a file from the staging area:
+```
+git rm --cached <file>
+# or (for directory)
+git rm -r --cahced <dir> 
+```
+*Warning*: the old name of the staging area is **index**. So, if you find in a documentation this term, remember that it refers to staging area.
 ## Push & pull
 Push local commits on main to origin for the first time (this command is needed only in some cases):
 ```
@@ -219,7 +275,7 @@ git push -u origin <new-branch>
 ## Troubleshooting
 **Why some commands are marked as "not recommended"?**
 
-It is also often used the ```Git checkout``` command to do many different actions between branches, so it is easy to get confused using that. However, we must remember these instructions because a lot of graphical Git integration use ```checkout``` keyword referring, for example, to the branch switch operation.
+It is also often used the ```Git checkout``` command to do many different actions between branches, so it is easy to get confused using that. However, you must remember these instructions because a lot of graphical Git integration use ```checkout``` keyword referring, for example, to the branch switch operation.
 
 **How much big has to be a commit?**
 
@@ -227,9 +283,9 @@ The answer is not easy to define, but please do not be so psychopath to make a c
 \
 It is a good practice commit when is meaningful to do that. For example, if you are working on a website, it is logical to commit after building the intestation, then another commit can be about the body, another about webpage animations, etc.
 
-If we would to define a rule, we could say that is useful to commit when we reached a state of the project that we want to record.
+If you would to define a rule, you could say that is useful to commit when you reached a state of the project that you want to record.
 \
-Working this way it is useful to have the possibility to go back to a previous software version for many reasons. For example, we reached an impasse and have been apported too much changes to use simply CTRL+Z (command+z), so we want to return to a stable version of the software.
+Working this way it is useful to have the possibility to go back to a previous software version for many reasons. For example, you reached an impasse and have been apported too much changes to use simply CTRL+Z (command+z), so you want to return to a stable version of the software.
 
 **Why should I keep some file unstaged while I am committing?**
 
