@@ -95,7 +95,7 @@ Long description
 All lines which starts with ```#``` will be ignored.
 
 Let's learn how to add or remove file to commit.
-## Add or remove file to commit
+## Add file to commit
 Add files to commit:
 ```
 git add <file1> <file2> <...>
@@ -105,22 +105,10 @@ It is also possible to use metacharacters to match multiple files.
 For example:
 ```
 git add *
-# or
+# or using patterns
 git add *.txt
-# etc...
-
-# if you want to add entire directory recursively
+# or you can add the entire directory
 git add .
-```
-Remove a changed file to commit:
-```
-git reset <file1> <file2> <...>
-# or
-git reset *.txt
-# etc...
-
-# if you want to remove entire directory recursively
-git reset .
 ```
 ## Staging area
 When you add a new file or its changes to commit, you are putting them into the **staging area**.
@@ -129,7 +117,7 @@ It is a mid-area, between the current status of the repository (this status is c
 \
 If you want to add some files or their changes to your next commit, you must stage them. This means that file changes are located into the working directory, but they are not put automatically in staging area.
 \
-It is important to notice that, if the file has been already staged at least once previously, it will be kept into the staging area as well as we added to it last time. Its changes will not be added until we add them instead.
+It is important to notice that, if the file has been already staged at least once previously (so in this case it is called "**tracked**", otherwise "**untracked**"), it will be kept into the staging area as well as we added to it last time. Its changes will not be added until we add them instead.
 \
 Do not get confused by syntax: it is true that when you use the ```git add``` command, it seems that you are adding files everytime to the staging area, but it is not exaclty what it is happening. Actually, if you already added a new file previously, then subsequently you are adding **changes** applied to it, because it as an entity was already located in the staging area. It is a basic notion to understand how ```.gitignore``` works.
 
@@ -145,7 +133,7 @@ git commit -am "Commit message"
 # or, if you need to add a long description using the editor
 git commit -a
 ```
-
+## Diff tool
 Know what changes has been applied to files that we have in the staging area the is going in the next commit:
 ```
 git diff --staged
@@ -170,17 +158,113 @@ Know changes that we haven't added to the staging area:
 git diff
 ```
 
-If you don't want to get mad, consider to install a GUI Git implementation to check more easily changes.
-## Discard changes
+If you don't want to get mad, consider to install a GUI Git implementation to check more easily changes. You can config a default editor to inspect modifications runnig these commands:
+```
+git config --global diff.tool vscode 
+git config --global difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"
+```
+Where the first command gives to the difftool the arbitrary name "vscode" and the second one sets the command to run in the shell when ```git diff``` command will be run. ```--diff``` option specify that you need to run VS Code in diff mode, ```$LOCAL``` and ```$REMOTE``` environment variables contain respectively old and new copies of files.
+\
+Verify everytime that configuration is correct using ```git config --global -e```.
+
+Use the just configured difftool to check changes:
+```
+git difftool --staged
+# or
+git difftool
+```
+## Restore
+Restore a file from the staging area to the working directory:
+```
+git restore --staged <file1> <file2> <...>
+# or using patterns
+git restore --staged *.txt
+# or you can restore the entire directory
+git restore --staged .
+```
 Discard changes in working directory (restore a file to its status since last commit):
 ```
-git restore <file>
+git restore <file1> <file2> <...>
+# or using patterns
+git restore *.txt
+# or you can restore the entire directory
+git restore .
 ```
 Another equivalent command (not recommended, see troubleshooting section):
 ```
 git checkout -- <file>
 ```
 All changes made on that file since last commit will be all deleted.
+
+*Warning*: if you are adding a file for the first time (so it is untracked), Git doesn't have a previous version of it, so it will be left untouched. If you want to remove that, you can use the command:
+```
+git clean
+# probably it will prompt an error message because the operation is unsafe
+# so, if you are sure of what you are doing, type this command
+git clean -fd
+```
+Where ```-f``` expands in ```--force``` to give avoid the error message and ```-d``` stands for "directory", so directory will be removed too.
+
+Restore a file to one of its previous snapshot:
+```
+git restore --source=<branch>~n <file>
+```
+## Delete a file
+Delete a file from a repository:
+```
+git rm <file1> <file2> <...>
+# or using patterns
+git rm *.txt
+# or you can delete the entire directory (be careful!)
+git rm .
+```
+*Warning*: using this command you are deleting the file from both working directory and staging area. If you want to remove that only from working directory, you must use classical commands of your system shell.
+
+*Warning*: to make sure that the change has effect on the repository, you need to add it to the staging area, then commit.
+## Repository history
+Get the commits history (sorted from the latest to the earliest):
+```
+git log
+```
+Reverse the sort order:
+```
+git log --reverse
+```
+Get a more compact view:
+```
+git log --oneline
+```
+Every commit is identified by a SHA. It is useful, for examle, to restore the repository to a older commit. See next sections to learn more about that.
+## Show commit
+Show changes that has been apported into a specific commit:
+```
+git show <SHA>
+# or
+git show HEAD~n
+# to have a quick look to changes of lastest commit
+git show HEAD
+```
+Where ```HEAD``` is by default a pointer to the lastest commit and ```n``` must to be an integer that specify of how many commits do you want to go back.
+
+If you don't want to see differences, but only the final file version, type this command:
+```
+git show HEAD~n:filepath
+```
+Where the scope of ```filepath``` starts at the repository's main directory.
+
+Show the entire directory tree of a repository:
+```
+git ls-tree HEAD~n
+```
+In the output files will be maked as ```blob``` and directories as ```tree```. Take a look to the section below to learn about Git objects. 
+## Git objects
+Git is a database that has its own objects. These are:
+* Commits;
+* Blobs (files);
+* Trees (diretories);
+* Tags.
+
+So frequently you will run into this strange terminology.
 ## Add remote repository
 If you cloned your local repository from a remote one, you don't need to use this command, the origin will be set by default at the url used to clone.
 
@@ -289,7 +373,13 @@ Working this way it is useful to have the possibility to go back to a previous s
 
 **Why should I keep some file unstaged while I am committing?**
 
-It is very important to do commits with a logical sense. So, if you work on more block of code that each one has a distinct function into the software you are working on, it is strongly recommended to commit severaly changes applied on each block. The only way to do this is to add to the commit files of the block ready to commit, so to keep others **unstaged**, then do the first commit. 
+It is very important to do commits with a logical sense. So, if you work on more block of code that each one has a distinct function into the software you are working on, it is strongly recommended to commit severaly changes applied on each block. The only way to do this is to add to the commit files of the block ready to commit, so to keep others **unstaged**, then do the first commit.
+
+**It is necessary to type the entire commit's SHA?**
+
+No.
+\
+It is uneasy to type the entire SHA of a commit, so it is possible to type fewer characters as long as  we don't have another commit that match with them.
 
 **How can I get Git interface prettier?**
 
