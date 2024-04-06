@@ -209,20 +209,32 @@ Restore a file to one of its previous snapshot:
 ```
 git restore --source=<branch>~n <file>
 ```
-## Delete a file
-Delete a file from a repository:
+## Remove a file
+Removing a file it is a bit complicated because you need to be so careful looking the place from which you are removing that file, then consequences of your actions between working directory, staging area and repository. 
+
+Delete a file from working directory:
 ```
 git rm <file1> <file2> <...>
 # or using patterns
 git rm *.txt
-# or you can delete the entire directory (be careful!)
-git rm .
+# or deleting a directory
+gir rm -r <dir>
 ```
+Where ```-r``` stands for "recursive".
+
 *Warning*: using this command you are deleting the file from both working directory and staging area. If you want to remove that only from working directory, you must use classical commands of your system shell.
 
-*Warning*: to make sure that the change has effect on the repository, you need to add it to the staging area, then commit.
+To remove files from a repository, you need to add changes (this case they are delete operations) to the staging area, then commit.
+
+Remove a file from the staging area:
+```
+git rm --cached <file>
+# or (for directory)
+git rm -r --cahced <dir> 
+```
+*Warning*: the old name of the staging area is **index**. So, if you find in a documentation this term, remember that it refers to staging area.
 ## Repository history
-Get the commits history (sorted from the latest to the earliest):
+Get the commits's history (sorted from the latest to the earliest):
 ```
 git log
 ```
@@ -273,20 +285,6 @@ Otherwise, add a remote repository as "origin":
 git remote add origin <url-remote-repository>
 ```
 It is true that you can use an arbitrary name instead of "origin"... but why? At your own risk.
-## Remove a file
-Remove a file from the current working directory:
-```
-git rm <file>
-# or (for directory)
-git rm -r <dir>
-```
-Remove a file from the staging area:
-```
-git rm --cached <file>
-# or (for directory)
-git rm -r --cahced <dir> 
-```
-*Warning*: the old name of the staging area is **index**. So, if you find in a documentation this term, remember that it refers to staging area.
 ## Push & pull
 Push local commits on main to origin for the first time (this command is needed only in some cases):
 ```
