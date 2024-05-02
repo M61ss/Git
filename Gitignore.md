@@ -12,7 +12,7 @@ Create a new file and call it `.gitignore`. Then, to ensure that it has effect, 
 
 To modify this file you can use whatever text editor you want. If you use VS Code and you don't want to leave the command-line, you can run this command:
 
-```
+```bash
 code .gitignore
 ```
 

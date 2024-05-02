@@ -2,7 +2,7 @@
 
 Initialize a folder as Git repository:
 
-```
+```bash
 git init <repository>
 ```
 
@@ -12,7 +12,7 @@ This command will create ann hidden folder called `.git`. Inside it you can find
 
 Clone on your local machine a remote repository:
 
-```
+```bash
 git clone <url-remote-repository>
 ```
 
@@ -20,13 +20,13 @@ git clone <url-remote-repository>
 
 Know the current status of the repository in the current branch (name of current branch, changes and changes ready to commit):
 
-```
+```bash
 git status
 ```
 
 For a more compact view:
 
-```
+```bash
 git status -s
 ```
 
@@ -38,7 +38,7 @@ A commit is a snapshot of your project taken at the time that you submit that.
 \
 Commit added changes:
 
-```
+```bash
 git commit -m "Commit message"
 ```
 
@@ -46,13 +46,13 @@ It is mandatory to write a short meaningful message that describe what your chan
 \
 If you don't specify `-m` followed by your message like that:
 
-```
+```bash
 git commit
 ```
 
 Git will open the default editor that you specified in the configuration (otherwise, it will open another text editor chosen by itself) and it will wait until you edited, then closed the file `COMMIT_EDITMSG`. In this case, you have the possibility to write a short description (corrisponding to the message given from command-line), but also a long description separating lines like that:
 
-```
+```bash
 Short description
 
 Long description
@@ -66,7 +66,7 @@ Let's learn how to add or remove file to commit.
 
 Add files to commit:
 
-```
+```bash
 git add <file1> <file2> <...>
 ```
 
@@ -74,7 +74,7 @@ It is also possible to use metacharacters to match multiple files.
 \
 For example:
 
-```
+```bash
 git add *
 # or using patterns
 git add *.txt
@@ -96,7 +96,7 @@ Do not get confused by syntax: it is true that when you use the `git add` comman
 
 Get a compact list of files contained inside the staging area:
 
-```
+```bash
 git ls-files
 ```
 
@@ -104,7 +104,7 @@ _Warning_: if you modify the `.gitignore` file, Git keeps tracking changes, so, 
 
 If you don't need to keep one or more files unstaged, so you can use this fast command:
 
-```
+```bash
 git commit -am "Commit message"
 # or, if you need to add a long description using the editor
 git commit -a
@@ -114,13 +114,13 @@ git commit -a
 
 Know what changes has been applied to files that we have in the staging area the is going in the next commit:
 
-```
+```bash
 git diff --staged
 ```
 
 Let's see an example output:
 
-```
+```bash
 diff --git a/file1 b/file1
 index badfb70..47c3216 100644
 --- a/file1     # --- indicates that is the old version of the file
@@ -137,13 +137,13 @@ This way to display changes organize them into blocks that starts with `@@ -colu
 
 Know changes that we haven't added to the staging area:
 
-```
+```bash
 git diff
 ```
 
 If you don't want to get mad, consider to install a GUI Git implementation to check more easily changes. You can config a default editor to inspect modifications runnig these commands:
 
-```
+```bash
 git config --global diff.tool vscode
 git config --global difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"
 ```
@@ -154,7 +154,7 @@ Verify everytime that configuration is correct using `git config --global -e`.
 
 Use the just configured difftool to check changes:
 
-```
+```bash
 git difftool --staged
 # or
 git difftool
@@ -164,7 +164,7 @@ git difftool
 
 Restore a file from the staging area to the working directory:
 
-```
+```bash
 git restore --staged <file1> <file2> <...>
 # or using patterns
 git restore --staged *.txt
@@ -174,7 +174,7 @@ git restore --staged .
 
 Discard changes in working directory (restore a file to its status since last commit):
 
-```
+```bash
 git restore <file1> <file2> <...>
 # or using patterns
 git restore *.txt
@@ -184,7 +184,7 @@ git restore .
 
 Another equivalent command (not recommended, see troubleshooting section):
 
-```
+```bash
 git checkout -- <file>
 ```
 
@@ -192,7 +192,7 @@ All changes made on that file since last commit will be all deleted.
 
 _Warning_: if you are adding a file for the first time (so it is untracked), Git doesn't have a previous version of it, so it will be left untouched. If you want to remove that, you can use the command:
 
-```
+```bash
 git clean
 # probably it will prompt an error message because the operation is unsafe
 # so, if you are sure of what you are doing, type this command
@@ -203,7 +203,7 @@ Where `-f` expands in `--force` to give avoid the error message and `-d` stands 
 
 Restore a file to one of its previous snapshot:
 
-```
+```bash
 git restore --source=<branch>~n <file>
 ```
 
@@ -213,7 +213,7 @@ Removing a file it is a bit complicated because you need to be so careful lookin
 
 Delete a file from working directory:
 
-```
+```bash
 git rm <file1> <file2> <...>
 # or using patterns
 git rm *.txt
@@ -229,7 +229,7 @@ To remove files from a repository, you need to add changes (this case they are d
 
 Remove a file from the staging area:
 
-```
+```bash
 git rm --cached <file>
 # or (for directory)
 git rm -r --cahced <dir>
@@ -241,19 +241,19 @@ _Warning_: the old name of the staging area is **index**. So, if you find in a d
 
 Get the commits's history (sorted from the latest to the earliest):
 
-```
+```bash
 git log
 ```
 
 Reverse the sort order:
 
-```
+```bash
 git log --reverse
 ```
 
 Get a more compact view:
 
-```
+```bash
 git log --oneline
 ```
 
@@ -263,7 +263,7 @@ Every commit is identified by a SHA. It is useful, for examle, to restore the re
 
 Show changes that has been apported into a specific commit:
 
-```
+```bash
 git show <SHA>
 # or
 git show HEAD~n
@@ -275,7 +275,7 @@ Where `HEAD` is by default a pointer to the lastest commit and `n` must to be an
 
 If you don't want to see differences, but only the final file version, type this command:
 
-```
+```bash
 git show HEAD~n:filepath
 ```
 
@@ -283,7 +283,7 @@ Where the scope of `filepath` starts at the repository's main directory.
 
 Show the entire directory tree of a repository:
 
-```
+```bash
 git ls-tree HEAD~n
 ```
 
@@ -306,7 +306,7 @@ If you cloned your local repository from a remote one, you don't need to use thi
 
 Otherwise, add a remote repository as "origin":
 
-```
+```bash
 git remote add origin <url-remote-repository>
 ```
 
@@ -316,7 +316,7 @@ It is true that you can use an arbitrary name instead of "origin"... but why? At
 
 Push local commits on main to origin for the first time (this command is needed only in some cases):
 
-```
+```bash
 git push -u origin <url-remote-repository>
 ```
 
@@ -324,13 +324,13 @@ Where `-u` expands in `--set-upstream`.
 
 Push local commits to origin:
 
-```
+```bash
 git push
 ```
 
 Push branch's local commits to origin (only if doesn't exists a remote branch with the same name):
 
-```
+```bash
 git push origin <branch>
 ```
 
@@ -338,6 +338,6 @@ If exists a remote branch with the same name and your intention is to push on th
 
 Pull changes from origin to your local main:
 
-```
+```bash
 git pull
 ```

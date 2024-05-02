@@ -8,7 +8,7 @@ You can configure your Git default settings with 3 different scopes:
 
 Most used mid-user Git configuration is:
 
-```
+```bash
 git config --global user.name "yourusername"
 git config --global user.email youremail@gmail.com
 git config --global core.editor "code --wait"
@@ -24,7 +24,7 @@ Where `core.editor` is used to set the default editor. This case I am using Visu
 
 After setting up the default Git editor, it is possible to manage more easily Git's settings running this command:
 
-```
+```bash
 git config --global -e
 ```
 
@@ -40,7 +40,7 @@ It is very important to set correctly this default setting because it give to Gi
 
 You can set this option running the following command:
 
-```
+```bash
 git config --global core.autocrlf true       # for Windows
 git config --global core.autocrlf input      # for macOS/Linux
 ```
@@ -49,12 +49,12 @@ git config --global core.autocrlf input      # for macOS/Linux
 
 To know other configuration options available, you can examine the manual page using:
 
-```
+```bash
 git config --help
 ```
 
 Or command-line quick help using:
 
-```
+```bash
 git config -h
 ```
