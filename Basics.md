@@ -6,7 +6,7 @@ Initialize a folder as Git repository:
 git init <repository>
 ```
 
-This command will create ann hidden folder called `.git`. Inside it you can find all informations you need about your repository, such as `config` file.
+This command will create ann hidden folder called `.git`. Inside it you can find all information you need about your repository, such as `config` file.
 
 ## Cloning a remote repository to local machine
 
@@ -50,7 +50,7 @@ If you don't specify `-m` followed by your message like that:
 git commit
 ```
 
-Git will open the default editor that you specified in the configuration (otherwise, it will open another text editor chosen by itself) and it will wait until you edited, then closed the file `COMMIT_EDITMSG`. In this case, you have the possibility to write a short description (corrisponding to the message given from command-line), but also a long description separating lines like that:
+Git will open the default editor that you specified in the configuration (otherwise, it will open another text editor chosen by itself) and it will wait until you edited, then closed the file `COMMIT_EDITMSG`. In this case, you have the possibility to write a short description (corresponding to the message given from command-line), but also a long description separating lines like that:
 
 ```bash
 Short description
@@ -92,7 +92,7 @@ If you want to add some files or their changes to your next commit, you must sta
 \
 It is important to notice that, if the file has been already staged at least once previously (so in this case it is called "**tracked**", otherwise "**untracked**"), it will be kept into the staging area as well as we added to it last time. Its changes will not be added until we add them instead.
 \
-Do not get confused by syntax: it is true that when you use the `git add` command, it seems that you are adding files everytime to the staging area, but it is not exaclty what it is happening. Actually, if you already added a new file previously, then subsequently you are adding **changes** applied to it, because it as an entity was already located in the staging area. It is a basic notion to understand how `.gitignore` works.
+Do not get confused by syntax: it is true that when you use the `git add` command, it seems that you are adding files every time to the staging area, but it is not exactly what it is happening. Actually, if you already added a new file previously, then subsequently you are adding **changes** applied to it, because it as an entity was already located in the staging area. It is a basic notion to understand how `.gitignore` works.
 
 Get a compact list of files contained inside the staging area:
 
@@ -100,7 +100,8 @@ Get a compact list of files contained inside the staging area:
 git ls-files
 ```
 
-_Warning_: if you modify the `.gitignore` file, Git keeps tracking changes, so, if you accidentally added files to ignore into staging area, you have to remove those from there (read in the section below to get to know how to remove that from there).
+> [!WARNING]
+> If you modify the `.gitignore` file, Git keeps tracking changes, so, if you accidentally added files to ignore into staging area, you have to remove those from there (read in the section below to get to know how to remove that from there).
 
 If you don't need to keep one or more files unstaged, so you can use this fast command:
 
@@ -148,11 +149,11 @@ git config --global diff.tool vscode
 git config --global difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"
 ```
 
-Where the first command gives to the difftool the arbitrary name "vscode" and the second one sets the command to run in the shell when `git diff` command will be run. `--diff` option specify that you need to run VS Code in diff mode, `$LOCAL` and `$REMOTE` environment variables contain respectively old and new copies of files.
+Where the first command gives to `difftool` the arbitrary name "vscode" and the second one sets the command to run in the shell when `git diff` command will be run. `--diff` option specify that you need to run VS Code in diff mode, `$LOCAL` and `$REMOTE` environment variables contain respectively old and new copies of files.
 \
-Verify everytime that configuration is correct using `git config --global -e`.
+Verify every time that configuration is correct using `git config --global -e`.
 
-Use the just configured difftool to check changes:
+Use the just configured `difftool` to check changes:
 
 ```bash
 git difftool --staged
@@ -190,16 +191,17 @@ git checkout -- <file>
 
 All changes made on that file since last commit will be all deleted.
 
-_Warning_: if you are adding a file for the first time (so it is untracked), Git doesn't have a previous version of it, so it will be left untouched. If you want to remove that, you can use the command:
-
-```bash
-git clean
-# probably it will prompt an error message because the operation is unsafe
-# so, if you are sure of what you are doing, type this command
-git clean -fd
-```
-
-Where `-f` expands in `--force` to give avoid the error message and `-d` stands for "directory", so directory will be removed too.
+> [!WARNING]
+> If you are adding a file for the first time (so it is untracked), Git doesn't have a previous version of it, so it will be left untouched. If you want to remove that, you can use the command:
+>
+> ```bash
+> git clean
+> # probably it will prompt an error message because the operation is unsafe
+> # so, if you are sure of what you are doing, type this command
+> git clean -fd
+> ```
+>
+> Where `-f` expands in `--force` to give avoid the error message and `-d` stands for "directory", so directory will be removed too.
 
 Restore a file to one of its previous snapshot:
 
@@ -223,7 +225,8 @@ gir rm -r <dir>
 
 Where `-r` stands for "recursive".
 
-_Warning_: using this command you are deleting the file from both working directory and staging area. If you want to remove that only from working directory, you must use classical commands of your system shell.
+> [!WARNING]
+> Using this command you are deleting the file from both working directory and staging area. If you want to remove that only from working directory, you must use classical commands of your system shell.
 
 To remove files from a repository, you need to add changes (this case they are delete operations) to the staging area, then commit.
 
@@ -235,7 +238,8 @@ git rm --cached <file>
 git rm -r --cahced <dir>
 ```
 
-_Warning_: the old name of the staging area is **index**. So, if you find in a documentation this term, remember that it refers to staging area.
+> [!WARNING]
+> The old name of the staging area is **index**. So, if you find in a documentation this term, remember that it refers to staging area.
 
 ## Repository history
 
@@ -257,21 +261,21 @@ Get a more compact view:
 git log --oneline
 ```
 
-Every commit is identified by a SHA. It is useful, for examle, to restore the repository to a older commit. See next sections to learn more about that.
+Every commit is identified by a SHA. It is useful, for example, to restore the repository to a older commit. See next sections to learn more about that.
 
 ## Show commit
 
-Show changes that has been apported into a specific commit:
+Show changes that has been produced into a specific commit:
 
 ```bash
 git show <SHA>
 # or
 git show HEAD~n
-# to have a quick look to changes of lastest commit
+# to have a quick look to changes of latest commit
 git show HEAD
 ```
 
-Where `HEAD` is by default a pointer to the lastest commit and `n` must to be an integer that specify of how many commits do you want to go back.
+Where `HEAD` is by default a pointer to the latest commit and `n` must to be an integer that specify of how many commits do you want to go back.
 
 If you don't want to see differences, but only the final file version, type this command:
 
@@ -287,7 +291,7 @@ Show the entire directory tree of a repository:
 git ls-tree HEAD~n
 ```
 
-In the output files will be maked as `blob` and directories as `tree`. Take a look to the section below to learn about Git objects.
+In the output files will be made as `blob` and directories as `tree`. Take a look to the section below to learn about Git objects.
 
 ## Git objects
 
@@ -295,7 +299,7 @@ Git is a database that has its own objects. These are:
 
 - Commits;
 - Blobs (files);
-- Trees (diretories);
+- Trees (directories);
 - Tags.
 
 So frequently you will run into this strange terminology.

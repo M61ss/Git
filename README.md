@@ -10,7 +10,7 @@ It is also useful to learn how to use a lot of graphical interfaces because they
 
 To get sure if Git is installed, run this command:
 
-```
+```bash
 git --version
 ```
 

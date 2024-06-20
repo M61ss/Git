@@ -9,16 +9,17 @@ You can configure your Git default settings with 3 different scopes:
 Most used mid-user Git configuration is:
 
 ```bash
-git config --global user.name "yourusername"
+git config --global user.name "yourUsername"
 git config --global user.email youremail@gmail.com
 git config --global core.editor "code --wait"
 ```
 
 Where `core.editor` is used to set the default editor. This case I am using Visual Studio Code. For use an editor this way, you have to added it to PATH when you installed that or you should add it before run this command.
 
-**What is `"code --wait"`?**
-\
-`code` is the command to give to the shell to normally run VS Code (if you added it to PATH). In this case you need to specify the option `--wait` because you have to tell to the shell to wait until you close the new VS Code instance that will be open whenever Git needs an operation of text editing.
+> [!NOTE]
+> **What is `"code --wait"`?**
+>
+> `code` is the command to give to the shell to normally run VS Code (if you added it to PATH). In this case you need to specify the option `--wait` because you have to tell to the shell to wait until you close the new VS Code instance that will be open whenever Git needs an operation of text editing.
 
 ## Edit global default settings
 
@@ -28,11 +29,12 @@ After setting up the default Git editor, it is possible to manage more easily Gi
 git config --global -e
 ```
 
-As you can see trying this command on your machine, when you open a file running a Git command, Git wait the closure of that before starting to work again. This feature is given by the optioin `--wait` as you said a little while ago.
+As you can see trying this command on your machine, when you open a file running a Git command, Git wait the closure of that before starting to work again. This feature is given by the option `--wait` as you said a little while ago.
 
-You can verify yourself that Git's settings that appears on the file opened by this command are only those you have already modified at least one time using command line, so this method is useful only if you want to modify or check some settings that, for example, you want to change or you don't remember.
+> [!NOTE]
+> You can verify yourself that those Git's settings which appears in the file opened by this command are only those has been already modified at least one time using command line, so this method is useful only if you want to modify or check some settings that, for example, you want to change or you don't remember.
 
-## Handle end of lines
+## End of lines
 
 Assuming that CRLF stands for "Carriage Return Line Feed", you can guess what setting `core.autocrlf` refers to.
 \

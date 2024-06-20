@@ -16,12 +16,14 @@ To modify this file you can use whatever text editor you want. If you use VS Cod
 code .gitignore
 ```
 
-## Handle staged files
-
-If you add to the `.gitignore` one or more files that you already added to the staging area, Git keeps to track them. To stop it tracking them, you need to remove these files from the staging area. In the `CLI_GIT.md` file is explained how to do that in the **"Remove a file"** section.
+> [!WARNING]
+>
+> If you add to the `.gitignore` one or more files that you already added to the staging area, Git keeps to track them. To stop it tracking them, you need to remove these files from the staging area.
+> \
+> In [Basics - Remove a file](Basics.md#remove-a-file) is explained how to do that.
 
 ## Formatting .gitignore
 
-The format of `.gitignore` is completly arbitrary according with your needs, but exist a lot of templates that you can use as `.gitignore` for your project. Infact, it is common that a project share some charateristics with others. For example, if you are working with Visual Studio, you can download from [this GitHub repository](https://github.com/github/gitignore) a template from Visual Studio's project.
+The format of `.gitignore` is completely arbitrary according with your needs, but exist a lot of templates that you can use as `.gitignore` for your project. In fact, it is common that a project share some characteristics with others. For example, if you are working with Visual Studio, you can download from [this GitHub repository](https://github.com/github/gitignore) a template from Visual Studio's project.
 \
 After have been downloaded the desired file, copy the content, then past it into your `.gitignore` file.
