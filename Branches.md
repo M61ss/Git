@@ -6,19 +6,19 @@ Git branches are very important to cooperate with other peoples or to safe devel
 
 Create a new branch from the last commit:
 
-```bash
+```shell
 git branch <new-branch>
 ```
 
 Another equivalent command (not recommended, see troubleshooting section):
 
-```bash
+```shell
 git checkout -b <new-branch>
 ```
 
 Create a branch from an older commit (due some need):
 
-```bash
+```shell
 git branch <new-branch-name> <SHA>
 ```
 
@@ -26,7 +26,7 @@ Where SHA is a code that uniquely identify a commit. That code is easily availab
 
 Create new local branch that keeps track of changes of a remote branch:
 
-```bash
+```shell
 git checkout -t origin/<branch>
 ```
 
@@ -36,7 +36,7 @@ Where `-t` expands in `--track`.
 
 Publish a branch on the remote repository:
 
-```bash
+```shell
 git push -u origin <local-branch>
 ```
 
@@ -44,33 +44,39 @@ git push -u origin <local-branch>
 
 The correct command to switch from a branch to the other is:
 
-```bash
+```shell
 git switch <destination-branch>
 ```
 
 Another equivalent command (not recommended, see troubleshooting section):
 
-```bash
+```shell
 git checkout <destination-branch>
+```
+
+## Delete a branch
+
+```shell
+git branch -d <branch>
 ```
 
 ## Rename a branch
 
 Rename the current working branch:
 
-```bash
+```shell
 git branch -m <new-branch>
 ```
 
 Rename a branch from any location:
 
-```bash
+```shell
 git branch <old-branch> <new-branch>
 ```
 
-Rename a remote branch
+Rename a remote branch:
 
-```bash
+```shell
 git push origin --delete <old-branch>
 git push -u origin <new-branch>
 ```
