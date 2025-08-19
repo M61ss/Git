@@ -345,3 +345,24 @@ Pull changes from origin to your local main:
 ```bash
 git pull
 ```
+
+## Revert to a past commit
+
+```bash
+# Ignoring any changes
+git reset --hard HEAD
+
+# Resets index to former commit; replace '56e05fced' with your commit code
+git reset 56e05fced 
+
+# Moves pointer back to previous HEAD
+git reset --soft HEAD@{1}
+
+git commit -m "Revert to 56e05fced"
+
+# Updates working copy to reflect the new commit
+git reset --hard
+
+# Push your changes to respective branch
+git push -f
+```
