@@ -39,6 +39,8 @@ Alternatively, you can create a key pair and use it to authenticate to GitHub. T
     ssh-add ~/.ssh/id_ed25519_github
     ```
 
+    You may need to add those lines to your `.bashrc` in order to not repeat that operation for every login (if you set a passphrase for your key, you will need to insert that at every login).
+
 3. Copy the public key:
 
     ```bash
